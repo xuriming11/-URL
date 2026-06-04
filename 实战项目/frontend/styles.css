@@ -1,0 +1,299 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.logo-icon {
+    font-size: 32px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.input-section, .output-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.input-section h2, .output-section h2 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group.half {
+    margin-bottom: 20px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.radio-item:hover {
+    border-color: #667eea;
+    background-color: #f8f9ff;
+}
+
+.radio-item input[type="radio"] {
+    width: auto;
+    margin: 0;
+}
+
+.radio-item span {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.radio-item input[type="radio"]:checked + span {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.radio-item input[type="radio"]:checked {
+    accent-color: #667eea;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.generate-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 1.3rem;
+}
+
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.output-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.action-btn:hover {
+    border-color: #667eea;
+    background-color: #f8f9ff;
+}
+
+.output-content {
+    min-height: 300px;
+    padding: 20px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 12px;
+    background-color: #fafafa;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.output-content .placeholder {
+    text-align: center;
+    color: #999;
+    padding: 60px 20px;
+}
+
+.placeholder-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.placeholder-hint {
+    font-size: 0.85rem;
+    margin-top: 8px;
+    opacity: 0.7;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    color: #667eea;
+    font-weight: 500;
+}
+
+.loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #f0f0f0;
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .radio-group {
+        flex-wrap: wrap;
+    }
+    
+    .radio-item {
+        flex: 1;
+        min-width: 100px;
+    }
+}

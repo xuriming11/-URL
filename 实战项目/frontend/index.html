@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能文案生成器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">✨</span>
+                <h1>智能文案生成器</h1>
+            </div>
+            <p class="subtitle">AI驱动，一键生成高质量营销文案</p>
+        </header>
+
+        <main class="main-content">
+            <div class="input-section">
+                <h2>输入产品信息</h2>
+                
+                <div class="form-group">
+                    <label for="productName">产品名称</label>
+                    <input type="text" id="productName" placeholder="请输入产品名称">
+                </div>
+
+                <div class="form-group">
+                    <label for="productDesc">产品描述</label>
+                    <textarea id="productDesc" placeholder="请详细描述产品特点、优势、功能等"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="targetAudience">目标受众</label>
+                    <input type="text" id="targetAudience" placeholder="例如：年轻女性、企业管理者、科技爱好者">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="tone">语气风格</label>
+                        <select id="tone">
+                            <option value="professional">专业正式</option>
+                            <option value="casual">轻松随意</option>
+                            <option value="humorous">幽默风趣</option>
+                            <option value="formal">庄重典雅</option>
+                            <option value="warm">温馨亲切</option>
+                            <option value="energetic">活力四射</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="platform">发布平台</label>
+                        <select id="platform">
+                            <option value="general">通用</option>
+                            <option value="wechat">微信</option>
+                            <option value="weibo">微博</option>
+                            <option value="douyin">抖音</option>
+                            <option value="taobao">淘宝</option>
+                            <option value="jd">京东</option>
+                            <option value="小红书">小红书</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="length">文案长度</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="length" value="short" checked>
+                            <span>简短</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="length" value="medium">
+                            <span>中等</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="length" value="long">
+                            <span>详细</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button id="generateBtn" class="generate-btn">
+                    <span class="btn-icon">🚀</span>
+                    生成文案
+                </button>
+            </div>
+
+            <div class="output-section">
+                <div class="output-header">
+                    <h2>生成结果</h2>
+                    <div class="output-actions">
+                        <button id="copyBtn" class="action-btn" title="复制文案">
+                            <span>📋</span>
+                        </button>
+                        <button id="regenerateBtn" class="action-btn" title="重新生成">
+                            <span>🔄</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="outputContent" class="output-content">
+                    <div class="placeholder">
+                        <span class="placeholder-icon">📝</span>
+                        <p>输入产品信息并点击"生成文案"按钮</p>
+                        <p class="placeholder-hint">文案将在这里显示</p>
+                    </div>
+                </div>
+
+                <div id="statusIndicator" class="status-indicator" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <span>AI正在生成文案中...</span>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>智能文案生成器 - 让AI助力您的内容创作</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
