@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能客服机器人</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            text-align: center;
+        }
+        
+        .login-box h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .login-box h1 span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .form-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .customer-select {
+            margin-top: 15px;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .customer-select:focus {
+            border-color: #667eea;
+        }
+        
+        .chat-container {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-header h2 {
+            color: #333;
+            font-size: 20px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-info span {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .logout-btn {
+            padding: 8px 20px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: #ee5a5a;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            line-height: 1.5;
+        }
+        
+        .message.user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.bot {
+            background: white;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message.system {
+            background: #f8f9fa;
+            color: #888;
+            align-self: center;
+            font-size: 12px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            max-width: 100%;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        .chat-input {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-input input:focus {
+            border-color: #667eea;
+        }
+        
+        .send-btn {
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 20px;
+            border-bottom-left-radius: 5px;
+            align-self: flex-start;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        .session-info {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            font-size: 12px;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .vip-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .vip-badge.gold { background: #ffd700; color: #8b6914; }
+        .vip-badge.silver { background: #c0c0c0; color: #4a4a4a; }
+        .vip-badge.bronze { background: #cd7f32; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <h1>智能<span>客服机器人</span></h1>
+            <p style="color: #888; margin-bottom: 20px;">请选择或输入用户信息登录</p>
+            
+            <div class="form-group">
+                <label for="customerSelect">选择模拟用户</label>
+                <select id="customerSelect" class="customer-select">
+                    <option value="">-- 选择用户 --</option>
+                    <option value="C001">C001 - 张三 (黄金会员)</option>
+                    <option value="C002">C002 - 李四 (白银会员)</option>
+                    <option value="C003">C003 - 王五 (黄金会员)</option>
+                    <option value="C004">C004 - 赵六 (青铜会员)</option>
+                    <option value="C005">C005 - 孙七 (黄金会员)</option>
+                    <option value="C006">C006 - 周八 (白银会员)</option>
+                    <option value="C007">C007 - 吴九 (青铜会员)</option>
+                    <option value="C008">C008 - 郑十 (黄金会员)</option>
+                    <option value="C009">C009 - 钱十一 (白银会员)</option>
+                    <option value="C010">C010 - 刘十二 (黄金会员)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="customName">或输入自定义用户名</label>
+                <input type="text" id="customName" placeholder="输入您的名字">
+            </div>
+            
+            <button class="btn btn-primary" onclick="login()">开始对话</button>
+            <button class="btn btn-secondary" onclick="loginAsGuest()">访客模式</button>
+        </div>
+    </div>
+    
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+        <h2>🤖 智能客服机器人</h2>
+        <div class="user-info">
+            <span id="currentUser">用户</span>
+            <span id="vipBadge" class="vip-badge" style="display: none;"></span>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+    </div>
+    
+    <div class="session-info" id="sessionInfo">
+        会话ID: <span id="sessionId">---</span> | 
+        累计消费: <span id="totalSpent">---</span> | 
+        注册时间: <span id="registerDate">---</span>
+    </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message system">欢迎来到智能客服！我可以帮您查询订单、产品信息，或者回答您的问题。</div>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="输入您的问题..." onkeydown="handleKeyDown(event)">
+            <button class="send-btn" onclick="sendMessage()" id="sendBtn">发送</button>
+        </div>
+    </div>
+    
+    <script>
+        let currentUser = null;
+        let currentSessionId = null;
+        const API_BASE = 'http://localhost:8000';
+        
+        let customerInfo = null;
+        
+        async function login() {
+            const customerId = document.getElementById('customerSelect').value;
+            const customName = document.getElementById('customName').value;
+            
+            if (!customerId && !customName) {
+                alert('请选择用户或输入用户名');
+                return;
+            }
+            
+            currentUser = customerId || customName;
+            
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('currentUser').textContent = currentUser;
+            
+            if (customerId) {
+                await loadCustomerInfo(customerId);
+            } else {
+                document.getElementById('vipBadge').style.display = 'none';
+                document.getElementById('totalSpent').textContent = '---';
+                document.getElementById('registerDate').textContent = '---';
+            }
+            
+            addMessage('system', '正在创建会话...');
+            await createSession();
+            
+            if (customerInfo) {
+                addMessage('system', `您好${customerInfo.name}，欢迎回来！您的${customerInfo.vip_level === 'gold' ? '黄金' : customerInfo.vip_level === 'silver' ? '白银' : '青铜'}会员等级已生效。`);
+            } else {
+                addMessage('system', '会话已创建，可以开始对话！');
+            }
+        }
+        
+        async function loadCustomerInfo(customerId) {
+            try {
+                const response = await fetch(`${API_BASE}/api/customers/${customerId}`);
+                if (response.ok) {
+                    customerInfo = await response.json();
+                    document.getElementById('totalSpent').textContent = `¥${customerInfo.total_spent.toLocaleString()}`;
+                    document.getElementById('registerDate').textContent = customerInfo.register_date;
+                    
+                    const vipBadge = document.getElementById('vipBadge');
+                    vipBadge.textContent = customerInfo.vip_level === 'gold' ? '黄金会员' : customerInfo.vip_level === 'silver' ? '白银会员' : '青铜会员';
+                    vipBadge.className = `vip-badge ${customerInfo.vip_level}`;
+                    vipBadge.style.display = 'inline-block';
+                }
+            } catch (error) {
+                console.error('加载客户信息失败:', error);
+            }
+        }
+        
+        function loginAsGuest() {
+            currentUser = '访客用户';
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('currentUser').textContent = currentUser;
+            createSession();
+        }
+        
+        function logout() {
+            currentUser = null;
+            currentSessionId = null;
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('chatContainer').style.display = 'none';
+            document.getElementById('chatMessages').innerHTML = '<div class="message system">欢迎来到智能客服！我可以帮您查询订单、产品信息，或者回答您的问题。</div>';
+            document.getElementById('customerSelect').value = '';
+            document.getElementById('customName').value = '';
+        }
+        
+        async function createSession() {
+            try {
+                const response = await fetch(`${API_BASE}/session`, { method: 'POST' });
+                const data = await response.json();
+                currentSessionId = data.session_id;
+                document.getElementById('sessionId').textContent = currentSessionId.substring(0, 8) + '...';
+            } catch (error) {
+                console.error('创建会话失败:', error);
+            }
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            input.value = '';
+            document.getElementById('sendBtn').disabled = true;
+            
+            addMessage('user', message);
+            
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'typing-indicator';
+            typingIndicator.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+            document.getElementById('chatMessages').appendChild(typingIndicator);
+            scrollToBottom();
+            
+            try {
+                const payload = { 
+                    prompt: message, 
+                    session_id: currentSessionId 
+                };
+                
+                if (currentUser && currentUser.startsWith('C')) {
+                    payload.customer_id = currentUser;
+                }
+                
+                const response = await fetch(`${API_BASE}/chat_sync`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                currentSessionId = data.session_id;
+                document.getElementById('sessionId').textContent = currentSessionId.substring(0, 8) + '...';
+                
+                document.getElementById('chatMessages').removeChild(typingIndicator);
+                addMessage('bot', data.response);
+            } catch (error) {
+                document.getElementById('chatMessages').removeChild(typingIndicator);
+                addMessage('system', '发送失败，请重试');
+                console.error('发送消息失败:', error);
+            } finally {
+                document.getElementById('sendBtn').disabled = false;
+            }
+        }
+        
+        function addMessage(type, content) {
+            const messages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            if (type === 'system') {
+                messageDiv.textContent = content;
+            } else {
+                messageDiv.innerHTML = `<div>${content.replace(/\n/g, '<br>')}</div>`;
+                const time = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+                messageDiv.innerHTML += `<div class="message-time">${time}</div>`;
+            }
+            
+            messages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        function scrollToBottom() {
+            const messages = document.getElementById('chatMessages');
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
