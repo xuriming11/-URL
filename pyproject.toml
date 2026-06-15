@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-customer-service"
+version = "1.0.0"
+description = "基于MCP协议的插件式AI客服系统"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "AI Customer Service Team", email = "team@example.com"}
+]
+keywords = ["ai", "customer-service", "mcp", "chatbot", "客服", "智能客服"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Communications :: Chat",
+    "Topic :: Artificial Intelligence",
+]
+
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "langchain>=0.1.0",
+    "langchain-openai>=0.0.5",
+    "python-dotenv>=1.0.0",
+    "websockets>=12.0",
+    "pydantic>=2.5.0",
+    "click>=8.0.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/example/ai-customer-service"
+Documentation = "https://github.com/example/ai-customer-service#readme"
+Repository = "https://github.com/example/ai-customer-service"
+Issues = "https://github.com/example/ai-customer-service/issues"
+
+[project.scripts]
+ai-cs = "ai_customer_service.cli.main:cli"
+ai-customer-service = "ai_customer_service.cli.main:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
