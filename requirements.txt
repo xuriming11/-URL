@@ -1,9 +1,26 @@
-fastapi==0.104.1
-uvicorn==0.24.0
-langchain==0.1.0
-langchain-openai==0.0.5
-python-dotenv==1.0.0
-websockets==12.0
-pydantic==2.5.0
-click>=8.0.0
-rich>=13.0.0
+# ===== 文档加载与切分 =====
+langchain==0.1.16
+langchain-community==0.0.34
+langchain-core==0.1.45
+
+# 文档解析
+pypdf==4.2.0
+python-docx==1.1.0
+
+# ===== 向量化与向量库 =====
+sentence-transformers==2.7.0
+FlagEmbedding==1.2.10
+chromadb==0.5.0
+
+# ===== 模型调用（可选：OpenAI兼容接口）=====
+openai==1.30.3
+langchain-openai==0.1.8
+
+# ===== FastAPI =====
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+
+# ===== 工具 =====
+pydantic==2.7.1
+pydantic-settings==2.2.1

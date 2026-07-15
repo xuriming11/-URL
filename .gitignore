@@ -1,0 +1,37 @@
+node_modules/
+*.log
+.DS_Store
+.svn/
+.project
+.settings/
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+dist/
+build/
+*.min.js
+*.min.css
+
+# 微信开发者工具生成的文件
+project.config.json
+sitemap.json
+*.wxc
+*.wxs
+
+# 临时文件
+temp/
+cache/
+
+# 图片缓存
+images/.cache/
+
+# 敏感信息
+.env
+.env.local
+.env.production
+*.secret
+
+# 构建产物
+npm-debug.log*
